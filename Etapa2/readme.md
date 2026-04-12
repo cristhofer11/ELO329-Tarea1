@@ -7,6 +7,12 @@
 * [Nombre Integrante 3]
 * [Nombre Integrante 4]
 
+#### **Entorno de Desarrollo y Requisitos**
+* **Sistema Operativo**: Linux (vía terminal integrada en VS Code).
+* **Lenguaje**: Java 21 (JDK 21).
+* **Herramienta de Construcción**: GNU Make 4.
+* **Entrada/Salida**: Archivos de texto plano y formato CSV con delimitador `<TAB>`.
+
 #### **Descripción General**
 La segunda etapa introduce la infraestructura de red colaborativa mediante celulares y el servidor central `ETNube`. El sistema evoluciona de un reporte de trayectoria real a un modelo de localización reportada por proximidad, donde los tags dependen de celulares cercanos que actúan como gateways GPS.
 
@@ -18,6 +24,7 @@ La segunda etapa introduce la infraestructura de red colaborativa mediante celul
 | **`Cellular`** | Gateway GPS que reporta su ubicación a la nube al detectar un equipo cercano. |
 | **`ETNube`** | Servidor de persistencia que almacena la última localización informada por la red. |
 | **`Territory`** | Administrador de proximidad que gatilla los reportes entre dispositivos. |
+| **`T1Stage2`** | **Controlador (Driver)** encargado de orquestar la simulación de esta etapa. |
 
 #### **Gestión de Archivos de Entrada**
 * **`config.txt`**: Carga de celulares con GPS y tags. Las tablets se registran pero no reportan GPS propio.
@@ -28,8 +35,12 @@ La segunda etapa introduce la infraestructura de red colaborativa mediante celul
 * **Reporte Indirecto:** Al ocurrir detección, el celular envía **su propia ubicación GPS** a la nube para el ítem detectado.
 * **Persistencia:** Si un equipo sale de rango, la `ETNube` mantiene el último reporte exitoso en el `output.csv`.
 
+
+
 #### **Ejecución (Make)**
+Para compilar y ejecutar el controlador de esta etapa (`T1Stage2`):
 ```bash
+cd Etapa4
 make clean
 make run
 ```
@@ -37,3 +48,12 @@ make run
 #### **Especificaciones Técnicas de la Entrega**
 * Es normal observar "saltos" en las coordenadas de los tags en el CSV; esto ocurre cuando un tag cambia de ser reportado por un celular a otro con distinta ubicación.
 * El servicio de reporte está encapsulado totalmente en la clase `ETNube`.
+
+---
+
+### Cambios realizados:
+1.  **Driver `T1Stage2`**: Agregado a la tabla de arquitectura.
+2.  **Entorno de Desarrollo**: Añadido para mantener la coherencia con el README de la Etapa 3 y de la Raíz.
+3.  **Encabezado**: Ajustado para que se vea igual de profesional que los anteriores.
+
+Con esto ya tienes los tres READMEs (Raíz, Etapa 2 y Etapa 3) perfectamente alineados. ¡Ya puedes hacer ese commit y push final para dejarle la base lista a tus compañeros!
