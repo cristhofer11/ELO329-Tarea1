@@ -29,6 +29,7 @@ Esta fase inicial se centra en la gestión de archivos de entrada y la represent
 #### **Ejecución (Make)**
 Para compilar y ejecutar el simulador de la Etapa 1:
 ```bash
+cd Etapa1
 make clean
 make run
 ```
