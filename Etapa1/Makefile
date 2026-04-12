@@ -1,16 +1,16 @@
+# Variables para facilitar cambios después
 JC = javac
 JVM = java
-JFLAGS = -g -d bin
-SRC = src
 BIN = bin
+SRC = src
+MAIN = T1Stage1
 
 all:
 	mkdir -p $(BIN)
-	$(JC) $(JFLAGS) $(SRC)/*.java
+	$(JC) -d $(BIN) $(SRC)/*.java
 
 run: all
-	$(JVM) -cp $(BIN) T1Stage1 config.txt move.txt
+	$(JVM) -cp $(BIN) $(MAIN) config.txt move.txt
 
 clean:
-	rm -rf $(BIN)
-	rm -f output.csv
+	rm -rf $(BIN)/*.class output.csv

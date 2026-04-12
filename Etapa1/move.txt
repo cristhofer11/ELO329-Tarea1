@@ -1,6 +1,5 @@
-Juan.celular 0.5 -0.8
-Juan.llaves 1 2.0
-Diego.tablet -0.6 -0.9
-Diego.tablet FindMy
-Pedro.celular 10 10
-Juan.celular FindMy
+Juan.llaves 1.2 0.0
+Pedro.maleta 10.0 10.0
+Diego.llaves -0.5 2.0
+Juan.llaves 0.5 -0.8
+Pedro.mochila 5.0 -3.0

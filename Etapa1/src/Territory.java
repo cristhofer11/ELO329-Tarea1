@@ -2,34 +2,36 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Territory {
-    private ArrayList<EloTelTag> tags = new ArrayList<>();
+    private ArrayList<EloTelTag> tags = new ArrayList<EloTelTag>();
 
     public void addTag(EloTelTag tag) {
         tags.add(tag);
     }
 
+    // Busca un tag específico por dueño y nombre
     public EloTelTag getTag(String ownerName, String equipmentName) {
         for (EloTelTag tag : tags) {
-            if (tag.getName().equals(equipmentName) && tag.getOwnerName().equals(ownerName)) {
+            if (tag.getOwnerName().equals(ownerName) && tag.getName().equals(equipmentName)) {
                 return tag;
             }
         }
         return null;
     }
 
+    // Imprime la primera línea del CSV con los nombres de las columnas [cite: 103, 106]
     public void printHeader(PrintStream output) {
-        output.print("Step\t");
+        output.print("Step");
         for (EloTelTag tag : tags) {
-            output.print(tag.getOwnerName() + "." + tag.getName() + ".x\t");
-            output.print(tag.getOwnerName() + "." + tag.getName() + ".y\t");
+            output.print("\t" + tag.getHeader());
         }
         output.println();
     }
 
+    // Imprime una fila con el paso actual y las posiciones de todos los tags [cite: 102, 105]
     public void printState(PrintStream output, int step) {
-        output.print(step + "\t");
+        output.print(step);
         for (EloTelTag tag : tags) {
-            output.print(tag.getState() + "\t");
+            output.print("\t" + tag.getState());
         }
         output.println();
     }

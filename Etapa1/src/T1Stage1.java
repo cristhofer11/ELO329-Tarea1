@@ -2,31 +2,32 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.util.Locale;
 
 public class T1Stage1 {
-    private Territory territory = new Territory();
+    private Territory territory;
     private int step = 0;
+
+    T1Stage1() {
+        territory = new Territory();
+    }
 
     public static void main(String args[]) throws IOException {
         if (args.length != 2) {
             System.out.println("Usage: java T1Stage1 <configFile> <moveFile>");
-            return;
+            System.exit(-1);
         }
 
-        T1Stage1 stage = new T1Stage1();
-        Scanner confFile = new Scanner(new File(args[0])).useLocale(Locale.US);
-        stage.setupSimulator(confFile);
-        confFile.close();
+        Scanner confFile = new Scanner(new File(args[0]));
+        Scanner movFile = new Scanner(new File(args[1]));
+        
+        // Generación del archivo CSV de salida 
+        PrintStream outCsv = new PrintStream(new File("output.csv"));
 
-        Scanner movFile = new Scanner(new File(args[1])).useLocale(Locale.US);
-        PrintStream csvOutput = new PrintStream(new File("output.csv"));
+        T1Stage1 stage = new T1Stage1();
+        stage.setupSimulator(confFile);
+        stage.runSimulation(movFile, outCsv);
         
-        stage.runSimulation(movFile, csvOutput);
-        
-        movFile.close();
-        csvOutput.close();
-        System.out.println("Simulación finalizada. Resultados en output.csv");
+        outCsv.close();
     }
 
     public void setupSimulator(Scanner in) {
@@ -35,54 +36,44 @@ public class T1Stage1 {
         for (int i = 0; i < personNumber; i++) {
             String personName = in.next();
             int tagNumber = in.nextInt();
-            boolean hasTablet = (in.nextInt() == 1);
-
-            // AGREGAR CELULAR (Antes lo saltábamos, ahora lo guardamos)
-            double celX = in.nextDouble();
-            double celY = in.nextDouble();
-            territory.addTag(new EloTelTag(personName, "celular", celX, celY));
-
-            // AGREGAR TAGS
+            boolean isThereTablet = in.nextInt() == 1;
+            
+            // Ignorar posición del celular en esta etapa [cite: 71, 125]
+            in.nextFloat(); in.nextFloat(); 
+            
             for (int j = 0; j < tagNumber; j++) {
                 String tagName = in.next();
-                double x = in.nextDouble();
-                double y = in.nextDouble();
+                float x = in.nextFloat();
+                float y = in.nextFloat();
                 territory.addTag(new EloTelTag(personName, tagName, x, y));
             }
-
-            // AGREGAR TABLET (Si existe)
-            if (hasTablet) {
-                double tabX = in.nextDouble();
-                double tabY = in.nextDouble();
-                territory.addTag(new EloTelTag(personName, "tablet", tabX, tabY));
+            
+            // Ignorar posición de tablet si existe [cite: 73, 125]
+            if (isThereTablet) {
+                in.nextFloat(); in.nextFloat();
             }
         }
     }
 
     public void runSimulation(Scanner in, PrintStream output) {
         territory.printHeader(output);
-        territory.printState(output, step);
-
+        territory.printState(output, step); // Paso 0: Estado inicial 
+        
         while (in.hasNext()) {
             String equipment = in.next();
-            
-            if (!in.hasNextDouble()) {
-                if (in.hasNext()) in.next(); // Consume "FindMy"
-            } else {
-                double deltaX = in.nextDouble();
-                double deltaY = in.nextDouble();
-
+            // Solo procesamos tags con formato Dueño.Tag en esta etapa [cite: 125]
+            if (equipment.contains(".")) {
                 String[] parts = equipment.split("\\.");
-                if (parts.length >= 2) {
-                    // Ahora esto encontrará tanto tags como celulares/tablets
-                    EloTelTag tag = territory.getTag(parts[0], parts[1]);
-                    if (tag != null) {
-                        tag.move(deltaX, deltaY);
-                    }
+                float deltaX = in.nextFloat();
+                float deltaY = in.nextFloat();
+                
+                EloTelTag tag = territory.getTag(parts[0], parts[1]);
+                if (tag != null) {
+                    tag.move(deltaX, deltaY);
+                    step++;
+                    territory.printState(output, step);
                 }
             }
-            step++;
-            territory.printState(output, step);
         }
     }
 }

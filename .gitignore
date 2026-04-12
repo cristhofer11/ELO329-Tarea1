@@ -1,16 +1,17 @@
-# Compilados y binarios
-bin/
-out/
+# Java: Ignorar archivos compilados (bytecode)
 *.class
 
-# Archivos de salida y temporales
+# Ignorar carpeta de binarios generada por Make o IDEs
+bin/
+out/
+build/
+
+# Archivos generados por la ejecución del simulador
 output.csv
-*.log
 
-# Archivos específicos de IntelliJ que no queremos en el repo
-.idea/
-*.iml
+# Configuraciones locales de VS Code
+.vscode/
 
-# Archivos de sistema
+# Archivos temporales del sistema
 .DS_Store
 Thumbs.db

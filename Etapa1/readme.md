@@ -1,40 +1,39 @@
-```markdown
-# Etapa 1: Simulador de Movimientos
+### Tarea 1: Simulador EloTelTag - Etapa 1
+**Curso:** ELO329 - Diseño y Programación Orientados a Objetos  
+**Institución:** Universidad Técnica Federico Santa María  
+**Integrantes:** 
+* Cristhofer Sandoval Huilipán
+* [Nombre Integrante 2]
+* [Nombre Integrante 3]
+* [Nombre Integrante 4]
 
-Esta entrega inicial implementa la arquitectura base para el seguimiento de equipos. El sistema es capaz de leer una configuración inicial de usuarios y procesar una serie de movimientos vectoriales.
 
-## Estructura de Archivos
+#### **Descripción General**
+Esta fase inicial se centra en la gestión de archivos de entrada y la representación básica de los rastreadores pasivos `EloTelTag`. El sistema valida la lectura de parámetros de configuración y la ejecución de comandos de movimiento aplicados exclusivamente a los tags. En esta etapa, el reporte refleja la trayectoria física real de los equipos sin considerar aún la infraestructura de red o gateways.
 
-- **src/**:
-  - `T1Stage1.java`: Clase principal que orquesta la lectura de archivos y el ciclo de simulación.
-  - `Territory.java`: Clase responsable de gestionar la lista de equipos y generar el reporte de salida.
-  - `EloTelTag.java`: Representación de los dispositivos, gestionando su posición y desplazamientos.
+#### **Arquitectura del Sistema**
+| Clase | Responsabilidad |
+| :--- | :--- |
+| **`EloTelTag`** | Encapsula la identidad (dueño y nombre) y gestiona su posición física $(x, y)$. |
+| **`Territory`** | Contenedor que administra la colección global de equipos y delega la impresión de estados. |
+| **`T1Stage1`** | Driver principal encargado del parsing de archivos y el control del flujo de simulación. |
 
-- **Datos y Compilación**:
-  - `Makefile`: Automatiza la compilación y ejecución.
-  - `config.txt`: Define los equipos iniciales por usuario.
-  - `move.txt`: Contiene los comandos de desplazamiento para la simulación.
+#### **Gestión de Archivos de Entrada**
+* **`config.txt`**: Define el número de personas y asigna tags dinámicamente con sus posiciones iniciales. Ignora dispositivos con pantalla en esta etapa.
+* **`move.txt`**: Motor de la simulación. Contiene instrucciones con el formato `Dueño.Tag delta_x delta_y`. Estos valores se suman directamente a la posición actual del equipo.
 
-## Instrucciones de Compilación y Ejecución
+#### **Lógica de Red y Localización**
+* **Reporte Directo:** El archivo `output.csv` registra las coordenadas exactas tras cada comando de movimiento en `move.txt`.
+* **Consistencia:** Si un equipo no recibe comandos en un paso, su posición se mantiene constante en el reporte para asegurar una ruta coherente.
 
-Desde la terminal, dentro de esta carpeta, utilice los siguientes comandos:
+#### **Ejecución (Make)**
+Para compilar y ejecutar el simulador de la Etapa 1:
+```bash
+make clean
+make run
+```
+*El Makefile automatiza la creación del directorio `bin/` y la ejecución con los archivos de texto proporcionados.*
 
-1. **Compilar**:
-   ```bash
-   make
-   ```
-
-2. **Ejecutar**:
-   ```bash
-   make run
-   ```
-
-3. **Limpiar**:
-   ```bash
-   make clean
-   ```
-
-## Detalles de Implementación
-- **Salida**: Los resultados se almacenan en `output.csv` utilizando el tabulador como separador de columnas.
-- **Precisión**: Se utiliza el tipo de dato `double` para las coordenadas espaciales.
-- **Configuración Regional**: Se emplea `java.util.Locale.US` para garantizar que el punto sea reconocido como separador decimal en cualquier sistema.
+#### **Especificaciones Técnicas de la Entrega**
+* El programa ignora las posiciones de celulares y tablets en el `config.txt` para cumplir con la restricción de la Etapa 1.
+* El archivo de salida muestra la "verdad absoluta" de la ubicación, permitiendo validar el correcto parsing de deltas.
