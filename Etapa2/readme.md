@@ -40,7 +40,7 @@ La segunda etapa introduce la infraestructura de red colaborativa mediante celul
 #### **Ejecución (Make)**
 Para compilar y ejecutar el controlador de esta etapa (`T1Stage2`):
 ```bash
-cd Etapa4
+cd Etapa2
 make clean
 make run
 ```
