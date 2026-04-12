@@ -3,7 +3,7 @@
 **Institución:** Universidad Técnica Federico Santa María  
 **Integrantes:** 
 * Cristhofer Sandoval Huilipán
-* [Nombre Integrante 2]
+* Tomás Ramdohr
 * [Nombre Integrante 3]
 * [Nombre Integrante 4]
 
