@@ -17,7 +17,7 @@ El sistema fue desarrollado y testeado bajo las siguientes especificaciones téc
 ---
 
 ## 2. Organización del Repositorio
-El proyecto se entrega organizado en **4 carpetas independientes**, representando la evolución incremental del simulador:
+El proyecto se entrega organizado en 4 carpetas independientes. Cada carpeta representa una fase del desarrollo incremental y es completamente autónoma, contando con su propio código fuente, archivos de configuración locales y lógica de compilación:
 
 * **`/Etapa1`**: Gestión de archivos y reporte de trayectoria física real.
 * **`/Etapa2`**: Implementación de herencia y lógica de reporte por proximidad (10 metros).
