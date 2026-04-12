@@ -1,8 +1,6 @@
 # Tarea 1: Simulando EloTelTag y Aplicación Find My
-## Información Institucional
-* **Curso**: ELO329 - Diseño y Programación Orientados a Objetos
-* **Semestre**: 1er Semestre 2026
-* **Institución**: Universidad Técnica Federico Santa María
+**Curso:** ELO329 - Diseño y Programación Orientados a Objetos  
+**Institución:** Universidad Técnica Federico Santa María  
 **Integrantes:** 
 * Cristhofer Sandoval Huilipán
 * [Nombre Integrante 2]
