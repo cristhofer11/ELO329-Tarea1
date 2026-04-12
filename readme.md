@@ -3,12 +3,11 @@
 * **Curso**: ELO329 - Diseño y Programación Orientados a Objetos
 * **Semestre**: 1er Semestre 2026
 * **Institución**: Universidad Técnica Federico Santa María
-* **Estudiante**: 
+**Integrantes:** 
 * Cristhofer Sandoval Huilipán
 * [Nombre Integrante 2]
 * [Nombre Integrante 3]
 * [Nombre Integrante 4]
----
 
 ## 1. Entorno de Desarrollo y Requisitos
 El sistema fue desarrollado y testeado bajo las siguientes especificaciones técnicas para asegurar total compatibilidad con el entorno de evaluación **Aragorn**:
