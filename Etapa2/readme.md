@@ -49,11 +49,3 @@ make run
 * Es normal observar "saltos" en las coordenadas de los tags en el CSV; esto ocurre cuando un tag cambia de ser reportado por un celular a otro con distinta ubicación.
 * El servicio de reporte está encapsulado totalmente en la clase `ETNube`.
 
----
-
-### Cambios realizados:
-1.  **Driver `T1Stage2`**: Agregado a la tabla de arquitectura.
-2.  **Entorno de Desarrollo**: Añadido para mantener la coherencia con el README de la Etapa 3 y de la Raíz.
-3.  **Encabezado**: Ajustado para que se vea igual de profesional que los anteriores.
-
-Con esto ya tienes los tres READMEs (Raíz, Etapa 2 y Etapa 3) perfectamente alineados. ¡Ya puedes hacer ese commit y push final para dejarle la base lista a tus compañeros!
