@@ -1,0 +1,16 @@
+# Compilados y binarios
+bin/
+out/
+*.class
+
+# Archivos de salida y temporales
+output.csv
+*.log
+
+# Archivos específicos de IntelliJ que no queremos en el repo
+.idea/
+*.iml
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

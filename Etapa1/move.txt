@@ -1,0 +1,6 @@
+Juan.celular 0.5 -0.8
+Juan.llaves 1 2.0
+Diego.tablet -0.6 -0.9
+Diego.tablet FindMy
+Pedro.celular 10 10
+Juan.celular FindMy
