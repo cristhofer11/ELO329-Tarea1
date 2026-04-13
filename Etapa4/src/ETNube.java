@@ -62,9 +62,11 @@ public class ETNube {
         for (int i = 0; i < cloudData.size(); i++) {
             Data data = cloudData.get(i);
             if (data.ownerName.equals(ownerName)) {
-                System.out.println(data.equipmentName + ": " +
-                                   data.location.getX() + ", " +
-                                   data.location.getY());
+                System.out.println(
+                    data.equipmentName + ": " +
+                    data.location.getX() + ", " +
+                    data.location.getY()
+                );
             }
         }
     }

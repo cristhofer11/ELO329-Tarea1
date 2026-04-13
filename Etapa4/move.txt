@@ -1,9 +1,11 @@
 Pedro.celular FindMy
 Pedro.llaves 1 1
 Pedro.celular 10 10
-Pedro.celular FindMy
+Pedro.tablet FindMy
 Pedro.mochila -5 -5
 Juan.celular FindMy
 Juan.celular 2 2
+Juan.tablet -15 -15
+Juan.tablet FindMy
 Juan.maleta -3 -3
 Juan.celular FindMy

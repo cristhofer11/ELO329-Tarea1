@@ -13,6 +13,7 @@ public class Viewer {
         System.out.println();
         System.out.println("=== FindMy de " + ownerName + " desde " + desde + " ===");
         nube.printOwnerLocations(ownerName);
+        System.out.println("==============================");
         System.out.println();
     }
 }

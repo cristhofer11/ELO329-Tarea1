@@ -14,6 +14,11 @@ public class Cellular extends Equipo {
         nube.updateLocation(tag.getOwnerName(), tag.getName(), getX(), getY());
     }
 
+    // Reporta a la nube la ubicación de un tablet usando la posición actual del celular
+    public void reportTabletLocation(Tablet tablet) {
+        nube.updateLocation(tablet.getOwnerName(), "tablet", getX(), getY());
+    }
+
     // Muestra en pantalla la información de FindMy del dueño del celular
     public void findMy() {
         viewer.show("celular");

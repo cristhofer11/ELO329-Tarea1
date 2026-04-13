@@ -3,13 +3,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class T1Stage3 {
+public class SimulatorTest {
     private Territory territory;
     private ETNube nube;
     private int step = 0;
 
     // Constructor: crea territorio y nube
-    public T1Stage3() {
+    public SimulatorTest() {
         territory = new Territory();
         nube = new ETNube();
     }
@@ -72,10 +72,16 @@ public class T1Stage3 {
             setupEloTag(in, personName);
         }
 
-        // En etapa 3 todavía no se modela tablet, solo se ignora su posición si existe
         if (isThereTablet) {
-            in.nextFloat();
-            in.nextFloat();
+            float tabletX = in.nextFloat();
+            float tabletY = in.nextFloat();
+
+            Viewer viewerTablet = new Viewer(personName, nube);
+            Tablet tablet = new Tablet(personName, tabletX, tabletY, viewerTablet);
+            territory.addTablet(tablet);
+
+            // Se deja registrado para mantener completo el header del CSV
+            nube.updateLocation(personName, "tablet", tabletX, tabletY);
         }
     }
 
@@ -137,8 +143,9 @@ public class T1Stage3 {
 
             moveEquipment(ownerName, equipmentName, deltaX, deltaY);
 
-            // Después de cada movimiento, los celulares reportan tags cercanos
+            // Después de cada movimiento, los celulares reportan tags y tablets cercanos
             territory.forEachTagTryToReportLocation();
+            territory.forEachTabletTryToReportLocation();
 
             step++;
             nube.printState(output, step);
@@ -152,6 +159,11 @@ public class T1Stage3 {
             if (celular != null) {
                 celular.findMy();
             }
+        } else if (equipmentName.equals("tablet")) {
+            Tablet tablet = territory.getTablet(ownerName);
+            if (tablet != null) {
+                tablet.findMy();
+            }
         }
     }
 
@@ -162,6 +174,11 @@ public class T1Stage3 {
             if (celular != null) {
                 celular.move(deltaX, deltaY);
                 nube.updateLocation(ownerName, "celular", celular.getX(), celular.getY());
+            }
+        } else if (equipmentName.equals("tablet")) {
+            Tablet tablet = territory.getTablet(ownerName);
+            if (tablet != null) {
+                tablet.move(deltaX, deltaY);
             }
         } else {
             EloTelTag tag = territory.getTag(ownerName, equipmentName);
