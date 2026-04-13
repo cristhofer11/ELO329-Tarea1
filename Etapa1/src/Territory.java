@@ -18,7 +18,7 @@ public class Territory {
         return null;
     }
 
-    // Imprime la primera línea del CSV con los nombres de las columnas [cite: 103, 106]
+    // Imprime la primera línea del CSV con los nombres de las columnas
     public void printHeader(PrintStream output) {
         output.print("Step");
         for (EloTelTag tag : tags) {
@@ -27,7 +27,7 @@ public class Territory {
         output.println();
     }
 
-    // Imprime una fila con el paso actual y las posiciones de todos los tags [cite: 102, 105]
+    // Imprime una fila con el paso actual y las posiciones de todos los tags
     public void printState(PrintStream output, int step) {
         output.print(step);
         for (EloTelTag tag : tags) {

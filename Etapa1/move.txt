@@ -1,5 +1,6 @@
-Juan.llaves 1.2 0.0
-Pedro.maleta 10.0 10.0
-Diego.llaves -0.5 2.0
-Juan.llaves 0.5 -0.8
-Pedro.mochila 5.0 -3.0
+Pedro.llaves 1.0 -1.0
+Juan.maleta -2.5 3.0
+Pedro.mochila 0.5 0.5
+Juan.tablet FindMy
+Pedro.celular 4.0 4.0
+Pedro.llaves -1.0 2.0

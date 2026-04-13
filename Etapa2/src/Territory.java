@@ -1,36 +1,57 @@
 import java.util.ArrayList;
 
-// Administrador de dispositivos y lógica de cercanía
+// Territorio donde están ubicados y se mueven celulares y tags
 public class Territory {
-    private ArrayList<Cellular> cells = new ArrayList<>();
-    private ArrayList<EloTelTag> tags = new ArrayList<>();
+    private ArrayList<Cellular> cellulars = new ArrayList<Cellular>();
+    private ArrayList<EloTelTag> tags = new ArrayList<EloTelTag>();
 
-    public void addCellular(Cellular c) { cells.add(c); }
-    public void addTag(EloTelTag t) { tags.add(t); }
-
-    // Búsqueda de celular por nombre de dueño
-    public Cellular getCellular(String owner) {
-        for (Cellular c : cells) if (c.getOwnerName().equals(owner)) return c;
-        return null;
+    // Agrega un celular al territorio
+    public void addCellular(Cellular cel) {
+        cellulars.add(cel);
     }
 
-    // Búsqueda de tag por dueño y nombre del dispositivo
-    public EloTelTag getTag(String owner, String name) {
-        for (EloTelTag t : tags) {
-            if (t.getOwnerName().equals(owner) && t.getName().equals(name)) return t;
-        }
-        return null;
+    // Agrega un tag al territorio
+    public void addTag(EloTelTag tag) {
+        tags.add(tag);
     }
 
-    // Verificación de rangos y activación de reportes
-    public void checkAndReport() {
-        for (EloTelTag t : tags) {
-            for (Cellular c : cells) {
-                if (t.isWithinRange(c)) {
-                    c.reportTagLocation(t);
-                    break;
-                }
+    // Para cada tag, busca un celular cercano y, si existe, reporta su ubicación a la nube
+    public void forEachTagTryToReportLocation() {
+        for (EloTelTag tag : tags) {
+            Cellular cell = findNearByCellular(tag);
+            if (cell != null) {
+                cell.reportTagLocation(tag);
             }
         }
+    }
+
+    // Busca un celular que esté a menos de 10 m del tag
+    private Cellular findNearByCellular(EloTelTag tag) {
+        for (Cellular cell : cellulars) {
+            if (tag.isWithinRange(cell)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    // Retorna el celular de una persona según el nombre de su dueño
+    public Cellular getCellular(String ownerName) {
+        for (Cellular cell : cellulars) {
+            if (cell.getOwnerName().equals(ownerName)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    // Busca un tag específico por dueño y nombre
+    public EloTelTag getTag(String ownerName, String equipmentName) {
+        for (EloTelTag tag : tags) {
+            if (tag.getOwnerName().equals(ownerName) && tag.getName().equals(equipmentName)) {
+                return tag;
+            }
+        }
+        return null;
     }
 }

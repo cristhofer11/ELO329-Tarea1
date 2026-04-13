@@ -1,45 +1,68 @@
 import java.awt.geom.Point2D;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Locale;
 
-// Repositorio central de datos reportados
 public class ETNube {
-    private ArrayList<Data> cloudData = new ArrayList<>();
+    private ArrayList<Data> cloudData;
 
-    // Registro de última posición conocida de un dispositivo
+    // Constructor: crea la estructura donde se guardan los datos reportados
+    public ETNube() {
+        cloudData = new ArrayList<Data>();
+    }
+
+    // Actualiza la última ubicación reportada de un equipo
     public void updateLocation(String owner, String equipment, float x, float y) {
-        for (Data d : cloudData) {
-            if (d.owner.equals(owner) && d.device.equals(equipment)) {
-                d.pos.setLocation(x, y);
-                return;
+        Point2D location;
+
+        if ((location = getLocation(owner, equipment)) == null) {
+            location = new Point2D.Float(x, y);
+            Data data = new Data(owner, equipment, location);
+            cloudData.add(data);
+        }
+
+        location.setLocation(x, y);
+    }
+
+    // Busca la ubicación registrada de un equipo en la nube
+    public Point2D getLocation(String owner, String equipment) {
+        for (Data data : cloudData) {
+            if (data.ownerName.equals(owner) && data.equipmentName.equals(equipment)) {
+                return data.location;
             }
         }
-        cloudData.add(new Data(owner, equipment, new Point2D.Float(x, y)));
+        return null;
     }
 
-    // Generación de cabecera para el reporte CSV
-    public void printHeader(PrintStream out) {
-        out.print("Step");
-        for (Data d : cloudData) {
-            out.print("\t" + d.owner + "." + d.device + ".x\t" + d.owner + "." + d.device + ".y");
+    // Imprime la primera línea del CSV con los nombres de las columnas
+    public void printHeader(PrintStream output) {
+        output.print("Step");
+        for (Data data : cloudData) {
+            output.print("\t" + data.ownerName + "." + data.equipmentName + ".x");
+            output.print("\t" + data.ownerName + "." + data.equipmentName + ".y");
         }
-        out.println();
+        output.println();
     }
 
-    // Escritura del estado de la nube en el archivo de salida
-    public void printState(PrintStream out, int step) {
-        out.print(step);
-        for (Data d : cloudData) {
-            out.format(Locale.US, "\t%.1f\t%.1f", d.pos.getX(), d.pos.getY());
+    // Imprime una fila con el paso actual y las posiciones registradas en la nube
+    public void printState(PrintStream output, int step) {
+        output.print(step);
+        for (Data data : cloudData) {
+            output.print("\t" + data.location.getX());
+            output.print("\t" + data.location.getY());
         }
-        out.println();
+        output.println();
     }
 
-    // Clase interna para almacenamiento de datos en la nube
+    // Clase interna para guardar la información de cada equipo reportado
     private static class Data {
-        String owner, device;
-        Point2D pos;
-        Data(String o, String d, Point2D p) { owner = o; device = d; pos = p; }
+        public String ownerName;
+        public String equipmentName;
+        public Point2D location;
+
+        public Data(String owner, String equipment, Point2D loc) {
+            ownerName = owner;
+            equipmentName = equipment;
+            location = loc;
+        }
     }
 }

@@ -1,22 +1,31 @@
-import java.io.PrintStream; // Import necesario para corregir el error
-
 public class Cellular extends Equipo {
     private ETNube nube;
-    private Viewer viewer; // Instancia de Viewer según etapa 3.3
+    private Viewer viewer;
 
-    public Cellular(String owner, float x, float y, ETNube nube) {
-        super(owner, "celular", x, y);
+    // Constructor del celular con dueño, posición, nube y visor
+    public Cellular(String owner, float x, float y, ETNube nube, Viewer viewer) {
+        super(owner, x, y);
         this.nube = nube;
-        this.viewer = new Viewer(nube);
+        this.viewer = viewer;
     }
 
-    public void reportLocation(Equipo eq) {
-        nube.updateLocation(eq.getOwnerName(), eq.getName(), this.x, this.y);
+    // Reporta a la nube la ubicación de un tag usando la posición actual del celular
+    public void reportTagLocation(EloTelTag tag) {
+        nube.updateLocation(tag.getOwnerName(), tag.getName(), getX(), getY());
     }
 
-    // Delega la visualización al objeto Viewer
-    public void findMy(PrintStream out) {
-        out.println("FindMy App en celular de " + this.ownerName + ":");
-        viewer.show(out, this.ownerName);
+    // Reporta a la nube la ubicación de un tablet usando la posición actual del celular
+    public void reportTabletLocation(Tablet tablet) {
+        nube.updateLocation(tablet.getOwnerName(), "tablet", getX(), getY());
+    }
+
+    // Muestra en pantalla la información de FindMy del dueño del celular
+    public void findMy() {
+        viewer.show("celular");
+    }
+
+    @Override
+    public String getHeader() {
+        return ownerName + ".celular.x\t" + ownerName + ".celular.y";
     }
 }

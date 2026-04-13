@@ -1,22 +1,29 @@
-import java.io.PrintStream; // Import necesario para corregir el error
-
 public class Tablet extends Equipo {
-    private Viewer viewer; // Instancia de Viewer según etapa 3.3
+    private Viewer viewer;
+    private static final float TRACKING_RANGE = 10;
 
-    public Tablet(String owner, String name, float x, float y, ETNube nube) {
-        super(owner, name, x, y);
-        this.viewer = new Viewer(nube);
+    // Constructor del tablet con dueño, posición inicial y visor
+    public Tablet(String owner, float x, float y, Viewer viewer) {
+        super(owner, x, y);
+        this.viewer = viewer;
     }
 
-    // Delega la visualización al objeto Viewer
-    public void findMy(PrintStream out) {
-        out.println("FindMy App en " + this.name + " (" + this.ownerName + "):");
-        viewer.show(out, this.ownerName);
+    // Muestra en pantalla la información de FindMy del dueño del tablet
+    public void findMy() {
+        viewer.show("tablet");
     }
 
-    // Lógica de proximidad para reporte indirecto
+    // Indica si el tablet está a menos de 10 m de un celular
     public boolean isWithinRange(Cellular cell) {
-        double dist = Math.sqrt(Math.pow(x - cell.getX(), 2) + Math.pow(y - cell.getY(), 2));
-        return dist <= 10.0;
+        float deltaX = x - cell.getX();
+        float deltaY = y - cell.getY();
+        float distanciaCuadrada = deltaX * deltaX + deltaY * deltaY;
+        return distanciaCuadrada < TRACKING_RANGE * TRACKING_RANGE;
+    }
+
+    // Encabezado del tablet para el CSV
+    @Override
+    public String getHeader() {
+        return ownerName + ".tablet.x\t" + ownerName + ".tablet.y";
     }
 }

@@ -1,24 +1,43 @@
-// Clase base abstracta para la jerarquía de dispositivos
-public abstract class Equipo {
+public class Equipo {
     protected final String ownerName;
-    protected final String name;
-    protected float x, y;
+    protected float x;
+    protected float y;
 
-    public Equipo(String owner, String name, float x, float y) {
-        this.ownerName = owner;
-        this.name = name;
+    // Constructor del equipo con dueño y posición inicial
+    public Equipo(String owner, float x, float y) {
+        ownerName = owner;
         this.x = x;
         this.y = y;
     }
 
-    public float getX() { return x; }
-    public float getY() { return y; }
-    public String getOwnerName() { return ownerName; }
-    public String getName() { return name; }
+    // Retorna coordenada x
+    public float getX() {
+        return x;
+    }
 
-    // Actualización de coordenadas físicas
-    public void move(float dx, float dy) {
-        this.x += dx;
-        this.y += dy;
+    // Retorna coordenada y
+    public float getY() {
+        return y;
+    }
+
+    // Mueve el equipo según los desplazamientos recibidos
+    public void move(float deltaX, float deltaY) {
+        x += deltaX;
+        y += deltaY;
+    }
+
+    // Retorna el nombre del dueño
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    // Retorna el encabezado para el CSV
+    public String getHeader() {
+        return ownerName + ".x\t" + ownerName + ".y";
+    }
+
+    // Retorna el estado actual del equipo para el CSV
+    public String getState() {
+        return x + "\t" + y;
     }
 }

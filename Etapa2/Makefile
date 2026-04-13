@@ -1,16 +1,18 @@
-# Automatización de tareas para la Etapa 2
+# Variables para facilitar cambios después
 JC = javac
+JVM = java
 BIN = bin
 SRC = src
-FLAGS = -d $(BIN)
-CP = -cp $(BIN)
+MAIN = T1Stage2
+
+.PHONY: all run clean
 
 all:
-	@mkdir -p $(BIN)
-	$(JC) $(FLAGS) $(SRC)/*.java
+	mkdir -p $(BIN)
+	$(JC) -d $(BIN) $(SRC)/*.java
 
 run: all
-	java $(CP) T1Stage2 config.txt move.txt
+	$(JVM) -cp $(BIN) $(MAIN) config.txt move.txt
 
 clean:
-	rm -rf $(BIN)/*.class output.csv
+	rm -rf $(BIN) output.csv

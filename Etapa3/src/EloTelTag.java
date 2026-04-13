@@ -1,14 +1,29 @@
-// Rastreador pasivo sin GPS propio
 public class EloTelTag extends Equipo {
-    private static final float RANGE = 10.0f;
+    private final String name;
+    private static final float TRACKING_RANGE = 10;
 
+    // Constructor del tag con dueño, nombre y posición inicial
     public EloTelTag(String owner, String name, float x, float y) {
-        super(owner, name, x, y);
+        super(owner, x, y);
+        this.name = name;
     }
 
-    // Cálculo de proximidad euclidiana: $\sqrt{\Delta x^2 + \Delta y^2}$
+    // Retorna el nombre del tag
+    public String getName() {
+        return name;
+    }
+
+    // Retorna el encabezado de este tag para el CSV
+    @Override
+    public String getHeader() {
+        return ownerName + "." + name + ".x\t" + ownerName + "." + name + ".y";
+    }
+
+    // Indica si el tag está a menos de 10 m de un celular
     public boolean isWithinRange(Cellular cell) {
-        double dist = Math.sqrt(Math.pow(x - cell.getX(), 2) + Math.pow(y - cell.getY(), 2));
-        return dist <= RANGE;
+        float deltaX = x - cell.getX();
+        float deltaY = y - cell.getY();
+        float distanciaCuadrada = deltaX * deltaX + deltaY * deltaY;
+        return distanciaCuadrada < TRACKING_RANGE * TRACKING_RANGE;
     }
 }

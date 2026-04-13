@@ -1,15 +1,19 @@
-import java.io.PrintStream;
-
-// Clase Viewer: Centraliza la visualización de datos (Requisito Etapa 3.3)
 public class Viewer {
+    private String ownerName;
     private ETNube nube;
 
-    public Viewer(ETNube nube) {
+    // Constructor del visor
+    public Viewer(String ownerName, ETNube nube) {
+        this.ownerName = ownerName;
         this.nube = nube;
     }
 
-    // Consulta la nube y despliega los bienes del propietario
-    public void show(PrintStream out, String owner) {
-        nube.printUserItems(out, owner);
+    // Muestra por pantalla las ubicaciones registradas de la persona
+    public void show(String desde) {
+        System.out.println();
+        System.out.println("=== FindMy de " + ownerName + " desde " + desde + " ===");
+        nube.printOwnerLocations(ownerName);
+        System.out.println("==============================");
+        System.out.println();
     }
 }

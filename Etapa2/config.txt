@@ -1,7 +1,7 @@
 2
-Pedro 1 0
-0.0 0.0
-maleta 5.0 5.0
+Pedro 2 0
+0 0
+llaves 3 4 mochila 20 20
 Juan 1 0
-50.0 50.0
-llaves 80.0 80.0
+50 50
+maleta 55 55

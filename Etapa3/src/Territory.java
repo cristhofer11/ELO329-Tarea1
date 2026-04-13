@@ -1,32 +1,102 @@
 import java.util.ArrayList;
 
-// Gestor del espacio físico y comunicaciones locales
+// Territorio donde están ubicados y se mueven celulares, tags y tablets
 public class Territory {
-    private ArrayList<Cellular> cells = new ArrayList<>();
-    private ArrayList<EloTelTag> tags = new ArrayList<>();
-    private ArrayList<Tablet> tablets = new ArrayList<>();
+    private ArrayList<Cellular> cellulars = new ArrayList<Cellular>();
+    private ArrayList<EloTelTag> tags = new ArrayList<EloTelTag>();
+    private ArrayList<Tablet> tablets = new ArrayList<Tablet>();
 
-    public void addCellular(Cellular c) { cells.add(c); }
-    public void addTag(EloTelTag t) { tags.add(t); }
-    public void addTablet(Tablet tab) { tablets.add(tab); }
-
-    public Cellular getCellular(String owner) {
-        for (Cellular c : cells) if (c.getOwnerName().equals(owner)) return c;
-        return null;
+    // Agrega un celular al territorio
+    public void addCellular(Cellular cel) {
+        cellulars.add(cel);
     }
 
-    public Equipo getAny(String owner, String name) {
-        if (name.equals("celular")) return getCellular(owner);
-        for (EloTelTag t : tags) if (t.getOwnerName().equals(owner) && t.getName().equals(name)) return t;
-        for (Tablet tab : tablets) if (tab.getOwnerName().equals(owner) && tab.getName().equals(name)) return tab;
-        return null;
+    // Agrega un tag al territorio
+    public void addTag(EloTelTag tag) {
+        tags.add(tag);
     }
 
-    // Escaneo de proximidad para reportes indirectos (Tags y Tablets)
-    public void checkAndReport() {
-        for (Cellular c : cells) {
-            for (EloTelTag t : tags) if (t.isWithinRange(c)) c.reportLocation(t);
-            for (Tablet tab : tablets) if (tab.isWithinRange(c)) c.reportLocation(tab);
+    // Agrega un tablet al territorio
+    public void addTablet(Tablet tablet) {
+        tablets.add(tablet);
+    }
+
+    // Para cada tag, busca un celular cercano y reporta su ubicación a la nube
+    public void forEachTagTryToReportLocation() {
+        for (int i = 0; i < tags.size(); i++) {
+            EloTelTag tag = tags.get(i);
+            Cellular celularCercano = findNearByCellular(tag);
+
+            if (celularCercano != null) {
+                celularCercano.reportTagLocation(tag);
+            }
         }
+    }
+
+    // Para cada tablet, busca un celular cercano y reporta su ubicación a la nube
+    public void forEachTabletTryToReportLocation() {
+        for (int i = 0; i < tablets.size(); i++) {
+            Tablet tablet = tablets.get(i);
+            Cellular celularCercano = findNearByCellular(tablet);
+
+            if (celularCercano != null) {
+                celularCercano.reportTabletLocation(tablet);
+            }
+        }
+    }
+
+    // Busca un celular cercano a un tag
+    private Cellular findNearByCellular(EloTelTag tag) {
+        for (int i = 0; i < cellulars.size(); i++) {
+            Cellular cell = cellulars.get(i);
+            if (tag.isWithinRange(cell)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    // Busca un celular cercano a un tablet
+    private Cellular findNearByCellular(Tablet tablet) {
+        for (int i = 0; i < cellulars.size(); i++) {
+            Cellular cell = cellulars.get(i);
+            if (tablet.isWithinRange(cell)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    // Retorna el celular de una persona
+    public Cellular getCellular(String ownerName) {
+        for (int i = 0; i < cellulars.size(); i++) {
+            Cellular cell = cellulars.get(i);
+            if (cell.getOwnerName().equals(ownerName)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    // Retorna el tablet de una persona
+    public Tablet getTablet(String ownerName) {
+        for (int i = 0; i < tablets.size(); i++) {
+            Tablet tablet = tablets.get(i);
+            if (tablet.getOwnerName().equals(ownerName)) {
+                return tablet;
+            }
+        }
+        return null;
+    }
+
+    // Busca un tag específico por dueño y nombre
+    public EloTelTag getTag(String ownerName, String equipmentName) {
+        for (int i = 0; i < tags.size(); i++) {
+            EloTelTag tag = tags.get(i);
+            if (tag.getOwnerName().equals(ownerName) && tag.getName().equals(equipmentName)) {
+                return tag;
+            }
+        }
+        return null;
     }
 }
