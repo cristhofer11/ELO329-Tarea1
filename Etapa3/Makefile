@@ -1,4 +1,3 @@
-# Variables para facilitar cambios después
 JC = javac
 JVM = java
 BIN = bin
@@ -9,7 +8,7 @@ MAIN = T1Stage3
 
 all:
 	mkdir -p $(BIN)
-	$(JC) -d $(BIN) $(SRC)/*.java
+	$(JC) -encoding UTF-8 -d $(BIN) $(SRC)/*.java
 
 run: all
 	$(JVM) -cp $(BIN) $(MAIN) config.txt move.txt

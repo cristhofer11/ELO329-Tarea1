@@ -27,7 +27,7 @@ public class SimulatorTest {
         Scanner movFile = new Scanner(new File(args[1]));
         PrintStream outCsv = new PrintStream(new File("output.csv"));
 
-        T1Stage3 stage = new T1Stage3();
+        SimulatorTest stage = new SimulatorTest();
         stage.setupSimulator(confFile);
 
         // Después de crear todo, los celulares reportan los tags cercanos
