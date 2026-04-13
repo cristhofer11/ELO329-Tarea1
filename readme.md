@@ -4,8 +4,8 @@
 **Integrantes:** 
 * Cristhofer Sandoval Huilipán
 * Tomás Ramdohr
-* [Nombre Integrante 3]
-* [Nombre Integrante 4]
+* Diego Mella
+* Danilo Painevilo
 
 ## 1. Entorno de Desarrollo y Requisitos
 El sistema fue desarrollado y testeado bajo las siguientes especificaciones técnicas para asegurar total compatibilidad con el entorno de evaluación **Aragorn**:
