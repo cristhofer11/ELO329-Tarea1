@@ -1,0 +1,9 @@
+2
+Pedro 2 1
+0 0
+llaves 3 4 mochila 20 20
+8 8
+Juan 1 1
+50 50
+maleta 55 55
+70 70
