@@ -2,7 +2,7 @@
 **Curso:** ELO329 - Diseño y Programación Orientados a Objetos  
 **Institución:** Universidad Técnica Federico Santa María  
 **Integrantes:** 
-* Cristhofer Sandoval Huilipán
+* Cristhofer Sandoval 
 * Tomás Ramdohr
 * Diego Mella
 * Danilo Painevilo
